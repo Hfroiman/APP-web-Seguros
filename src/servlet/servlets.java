@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import dao.SegurosDao;
 import dominio.Seguros;
 import dominio.Tiposeguro;
@@ -37,19 +38,21 @@ public class servlets extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getParameter("btnaceptar")!= null) {
-			seguros.setDescripcion(request.getParameter("txtdescripcion"));
-			seguros.setCostoContratacion(Float.parseFloat(request.getParameter("txtcostocontratacion")));
-			seguros.setCostoMaxAsegurado(Float.parseFloat(request.getParameter("txtcostomaximo")));
+			seguros.setDescripcion(request.getParameter("txtdescripcion"));				
+			seguros.setCostoContratacion(Float.parseFloat(request.getParameter("txtdescripcion")));				
+			seguros.setCostoMaxAsegurado(Float.parseFloat(request.getParameter("txtcostocontratacion")));							
 			seguros.setTipoSeguro(segurosDao.TipoSeguro(Integer.parseInt(request.getParameter("Seguros"))));
 			
-			
-			int fila = segurosDao.agregarSeguro(seguros);
-			
-			request.setAttribute("Seguro", fila);
-			RequestDispatcher rd= request.getRequestDispatcher("AgregarSeguro.jsp");
-			rd.forward(request, response);
+				int fila = segurosDao.agregarSeguro(seguros);
+				
+				request.setAttribute("Seguro", fila);
+				RequestDispatcher rd= request.getRequestDispatcher("AgregarSeguro.jsp");
+				rd.forward(request, response);				
 		}
+		
 	}
+
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

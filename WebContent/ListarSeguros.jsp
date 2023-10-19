@@ -14,28 +14,30 @@
 	<a href="servletSeguros?param=1">Agregar seguro</a>
 	<a href="servletSeguros?parametrolistar=1">Listar seguros</a>
 	
+	<%ArrayList<Tiposeguro> lista= null;
+		if(request.getAttribute("ValorlistaTipo")!=null){
+				lista=(ArrayList<Tiposeguro>)request.getAttribute("ValorlistaTipo");
+		}%>
 	<h3>"Tipo de seguros de la base de datos"</h3>
 	<form method="post" action="servlets">
 		Busqueda por tipo de Seguro:
 			<select name="Seguros">
-				<%ArrayList<Tiposeguro> lista= null;
-					if(request.getAttribute("ValorlistaTipo")!=null){
-						lista=(ArrayList<Tiposeguro>)request.getAttribute("ValorlistaTipo");
-					}
-					if(lista!=null){
-						for(Tiposeguro tpseguro: lista){%>
-							<option value="<%=tpseguro.getID()%>"> <%=tpseguro.getDescripcion()%> </option>					
-					 <%}
+				<%if(lista!=null){
+					for(Tiposeguro tpseguro: lista){%>
+						<option value="<%=tpseguro.getID()%>"> <%=tpseguro.getDescripcion()%> </option>					
+					<%}
 				}%>					
 			</select>
-			<input type="submit" name="txtfiltrar" value="Filtrar"></br>
+			<input type="submit" name="txtfiltrar" value="Filtrar">
+			</br>
 	</form>
-		
-	<table border="1">
+	
 	<%ArrayList<Seguros> listaSeguros = null;
 	if(request.getAttribute("Valorlista")!=null){
 		listaSeguros=(ArrayList<Seguros>)request.getAttribute("Valorlista");
 	}%>
+		
+	<table border="1">	
 	<tr><th>Id seguro</th> <th>Descripcion seguro</th><th>Descripcion tipo de seguro</th><th>Costo de contratacion</th><th>Costo maximo asegurado</th></tr>
 		<%if(listaSeguros!=null){
 			for(Seguros seguros:listaSeguros){%>
@@ -49,6 +51,8 @@
 			<%}
 		}%>
 	</table>
-
+	<form action="servletSeguros" method="get">
+		<input type="submit" name="parametrolistar" value="Lista completa">
+	</form>
 </body>
 </html>
